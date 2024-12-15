@@ -16,17 +16,18 @@ function callTaxi() {
 
     // AJAX-запрос для отправки данных на сервер
     $.ajax({
-        url: 'send_order.php',
-        type: 'POST',
+        url: 'send.php', // Укажите правильный путь к вашему PHP-файлу
+        method: 'POST',
         data: {
-            from: from,
-            to: to
+            from: start,
+            to: end
         },
         success: function(response) {
-            alert("Заказ отправлен в Telegram!");
+            alert("Ответ сервера: " + response);
         },
         error: function(xhr, status, error) {
-            alert("Ошибка при отправке заказа!");
+            console.error("Ошибка при отправке заказа:", status, error);
+            alert("Произошла ошибка. Проверьте консоль для подробностей.");
         }
     });
 }
