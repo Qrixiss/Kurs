@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #register-form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        #register-form input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        #register-form button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            background-color: #000000;
+            color: #ffffff;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #register-form button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div id="register-form">
+        <h1>Регистрация</h1>
+        <input type="text" id="username-input" placeholder="Ваше имя" required>
+        <input type="tel" id="phone-input" placeholder="Ваш номер телефона" required>
+        <button id="save-user-data" disabled>Сохранить</button>
+    </div>
+
+    <script>
+        const usernameInput = document.getElementById('username-input');
+        const phoneInput = document.getElementById('phone-input');
+        const saveButton = document.getElementById('save-user-data');
+
+        function validateForm() {
+            const username = usernameInput.value.trim();
+            const phone = phoneInput.value.trim();
+            const phoneRegex = /^\+?[0-9]{10,15}$/; // Регулярное выражение для проверки номера телефона
+            return username && phoneRegex.test(phone);
+        }
+
+        usernameInput.addEventListener('input', () => {
+            saveButton.disabled = !validateForm();
+        });
+
+        phoneInput.addEventListener('input', () => {
+            saveButton.disabled = !validateForm();
+        });
+
+        saveButton.addEventListener('click', () => {
+            const username = usernameInput.value.trim();
+            const phone = phoneInput.value.trim();
+            if (validateForm()) {
+                localStorage.setItem('username', username); 
+                localStorage.setItem('phone', phone);       
+                window.location.href = 'test.html';        
+            } else {
+                alert('Пожалуйста, введите корректные данные.');
+            }
+        });
+    </script>
+</body>
+</html>
